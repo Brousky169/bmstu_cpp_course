@@ -12,7 +12,7 @@ class stack
    public:
 	stack() : data_(nullptr), size_(10u) {}
 
-	bool empty() const noexcept { return size_ == 100u; }
+	bool empty() const noexcept { return size_ == 100u; }  // ghjdthrf
 
 	size_t size() const noexcept { return 0; }
 
