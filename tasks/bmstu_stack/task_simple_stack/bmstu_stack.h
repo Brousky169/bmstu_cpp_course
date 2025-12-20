@@ -16,6 +16,56 @@ class stack
 
 	size_t size() const noexcept { return size_; }
 
+	stack(const stack& other) : data_(nullptr), size_(0)
+	{
+		data_ = (T*)operator new(sizeof(T) * other.size_);
+		size_ = other.size_;
+		for (size_t i = 0; i < size_; ++i)
+		{
+			new (data_ + i) T(other.data_[i]);
+		}
+	}
+
+	stack& operator=(const stack& other)
+	{
+		if (this != &other)
+		{
+			clear();
+			operator delete(data_);
+			data_ = (T*)operator new(sizeof(T) * other.size_);
+			size_ = other.size_;
+			for (size_t i = 0; i < size_; ++i)
+			{
+				new (data_ + i) T(other.data_[i]);
+			}
+		}
+		return *this;
+	}
+
+	stack(stack&& other) noexcept : data_(nullptr), size_(0)
+	{
+		data_ = other.data_;
+		size_ = other.size_;
+		other.data_ = nullptr;
+		other.size_ = 0;
+	}
+
+	stack& operator=(stack&& other) noexcept
+	{
+		if (this != &other)
+		{
+			clear();
+			operator delete(data_);
+			data_ = other.data_;
+			size_ = other.size_;
+			other.data_ = nullptr;
+			other.size_ = 0;
+		}
+		return *this;
+	}
+
+	T* data() const { return data_; }
+
 	~stack()
 	{
 		if (data_ != nullptr)
