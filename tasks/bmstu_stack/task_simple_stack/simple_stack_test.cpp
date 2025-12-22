@@ -52,6 +52,34 @@ int CountCopyMoveDefault::default_constructor_count = 0;
 int CountCopyMoveDefault::assignment_copy_count = 0;
 int CountCopyMoveDefault::assignment_move_count = 0;
 
+TEST(StackTest, SelfAssignmentCopy)
+{
+	bmstu::stack<int> s;
+	s.push(1);
+	s.push(2);
+	s.push(3);
+
+	s = s;
+
+	ASSERT_EQ(s.size(), 3u);
+	ASSERT_EQ(s.top(), 3);
+
+	s.pop();
+	ASSERT_EQ(s.top(), 2);
+}
+
+TEST(StackTest, SelfAssignmentMove)
+{
+	bmstu::stack<int> s;
+	s.push(1);
+	s.push(2);
+
+	s = std::move(s);
+
+	ASSERT_EQ(s.size(), 2u);
+	ASSERT_EQ(s.top(), 2);
+}
+
 TEST(StackTest, Copyconstructor)
 {
 	bmstu::stack<int> s;
