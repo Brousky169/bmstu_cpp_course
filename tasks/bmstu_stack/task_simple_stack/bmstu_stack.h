@@ -10,7 +10,7 @@ template <typename T>
 class stack
 {
    public:
-	stack() : data_(nullptr), size_(0u) {}
+	stack() : data_(nullptr), size_(0u) {}	//
 
 	bool empty() const noexcept { return size_ == 0u; }
 
