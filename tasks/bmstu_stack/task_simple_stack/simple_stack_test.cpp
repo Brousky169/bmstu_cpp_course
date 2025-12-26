@@ -80,7 +80,7 @@ TEST(StackTest, SelfAssignmentMove)
 	ASSERT_EQ(s.top(), 2);
 }
 
-TEST(StackTest, Copyconstructor)
+TEST(StackTest, CopyConstructor)
 {
 	bmstu::stack<int> s;
 	s.push(1);
@@ -92,7 +92,7 @@ TEST(StackTest, Copyconstructor)
 	ASSERT_EQ(s1.top(), 3);
 }
 
-TEST(StartTest, Moveconstruktor)
+TEST(StartTest, MoveConstructor)
 {
 	bmstu::stack<int> s;
 	s.push(1);
