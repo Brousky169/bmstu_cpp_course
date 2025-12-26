@@ -10,13 +10,14 @@ template <typename T>
 class stack
 {
    public:
-	stack() : data_(nullptr), size_(0u) {}	//
+	stack() : data_(nullptr), size_(0u) {}	// Конструктор
 
-	bool empty() const noexcept { return size_ == 0u; }
+	bool empty() const noexcept { return size_ == 0u; }	 // Проверка на пустоту
 
-	size_t size() const noexcept { return size_; }
+	size_t size() const noexcept { return size_; }	// Возвращает текущий размер
 
-	stack(const stack& other) : data_(nullptr), size_(0)
+	stack(const stack& other)
+		: data_(nullptr), size_(0)	// Конструктор копирования
 	{
 		data_ = (T*)operator new(sizeof(T) * other.size_);
 		size_ = other.size_;
@@ -26,7 +27,7 @@ class stack
 		}
 	}
 
-	stack& operator=(const stack& other)
+	stack& operator=(const stack& other)  // Оператор копирующего присваивания
 	{
 		if (this != &other)
 		{
@@ -42,7 +43,8 @@ class stack
 		return *this;
 	}
 
-	stack(stack&& other) noexcept : data_(nullptr), size_(0)
+	stack(stack&& other) noexcept
+		: data_(nullptr), size_(0)	// Конструктор перемещения
 	{
 		data_ = other.data_;
 		size_ = other.size_;
@@ -50,7 +52,8 @@ class stack
 		other.size_ = 0;
 	}
 
-	stack& operator=(stack&& other) noexcept
+	stack& operator=(
+		stack&& other) noexcept	 // Оператор перемещающего присваивания
 	{
 		if (this != &other)
 		{
@@ -66,7 +69,7 @@ class stack
 
 	T* data() const { return data_; }
 
-	~stack()
+	~stack()  // Деструктор
 	{
 		if (data_ != nullptr)
 		{
@@ -75,7 +78,7 @@ class stack
 	}
 
 	template <typename... Args>
-	void emplace(Args&&... args)
+	void emplace(Args&&... args)  // Создание новго эл-та
 	{
 		T* new_data = (T*)(operator new(sizeof(T) * (size_ + 1)));
 
@@ -91,7 +94,7 @@ class stack
 		++size_;
 	}
 
-	void push(T&& value)
+	void push(T&& value)  // Перемещение
 	{
 		T* new_data = (T*)(operator new(sizeof(T) * (size_ + 1)));
 
@@ -108,7 +111,7 @@ class stack
 		++size_;
 	}
 
-	void clear() noexcept
+	void clear() noexcept  // Очищение стека
 	{
 		for (size_t i = 0; i < size_; ++i)
 		{
@@ -119,7 +122,7 @@ class stack
 		size_ = 0;
 	}
 
-	void push(const T& value)
+	void push(const T& value)  // Копирование
 	{
 		T* new_data = (T*)(operator new(sizeof(T) * (size_ + 1)));
 
@@ -135,7 +138,7 @@ class stack
 		++size_;
 	}
 
-	void pop()
+	void pop()	// Удаление верхнего эл-та
 	{
 		if (empty())
 		{
@@ -145,7 +148,7 @@ class stack
 		data_[size_].~T();
 	}
 
-	T& top()
+	T& top()  // Возвращает ссылку на верхний эл-т (с возможным изменением)
 	{
 		if (empty())
 		{
@@ -154,7 +157,7 @@ class stack
 		return data_[size_ - 1];
 	}
 
-	const T& top() const
+	const T& top() const  // Возвращает ссылку на верхний эл-т (только чтение)
 	{
 		if (empty())
 		{
