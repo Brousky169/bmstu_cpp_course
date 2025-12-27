@@ -78,7 +78,7 @@ class stack
 	}
 
 	template <typename... Args>
-	void emplace(Args&&... args)  // Создание новго эл-та
+	void emplace(Args&&... args)  // Создание новoго эл-та
 	{
 		T* new_data = (T*)(operator new(sizeof(T) * (size_ + 1)));
 
