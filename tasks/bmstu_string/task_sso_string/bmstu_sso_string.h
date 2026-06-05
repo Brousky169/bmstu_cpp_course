@@ -79,6 +79,13 @@ class basic_string
 	}
 
    public:
+	basic_string& concat(const T* str)
+	{
+		basic_string<T> temp = str;
+		*this += temp;
+		return *this;
+	}
+
 	// DefaultConstructor
 	basic_string()
 	{

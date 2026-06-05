@@ -376,3 +376,10 @@ TEST(SSOStringTest, SSOCapacity)
 	ASSERT_FALSE(long_str.is_using_sso());
 	ASSERT_GE(long_str.capacity(), long_str.size());
 }
+
+TEST(SSOStringTest, SSOCapacity2)
+{
+	bmstu::string short_str("test");
+	short_str.concat("abc").concat("123");
+	ASSERT_STREQ(short_str.c_str(), "testabc123");
+}
